@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WeightSpawnController : MonoBehaviour
+public class WeightController : MonoBehaviour
 {
     public GameObject[] Weights;
     public float Speed = 10;
