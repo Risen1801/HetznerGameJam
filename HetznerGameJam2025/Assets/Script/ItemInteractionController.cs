@@ -20,7 +20,7 @@ public class ItemInteractionController : MonoBehaviour
     {
         if (this.gameObject.CompareTag("FreezePotion") && collision.gameObject.layer == 9)
         {
-            collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+            collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
             collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX;
 
             _frozenObject = collision.gameObject;
@@ -34,11 +34,13 @@ public class ItemInteractionController : MonoBehaviour
         yield return new WaitForSeconds(delay);
         Debug.Log("StartedFreezing");
 
-        _frozenObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        _frozenObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX;
+        _frozenObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
 
-        StartCoroutine(LockZAxis(0.1f));
+        //StartCoroutine(LockZAxis(0.1f));
     }
 
+    /*
     IEnumerator LockZAxis(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -47,4 +49,5 @@ public class ItemInteractionController : MonoBehaviour
         _frozenObject.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ;
         _frozenObject.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
     }
+    */
 }
