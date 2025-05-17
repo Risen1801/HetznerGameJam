@@ -1,25 +1,23 @@
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class Charactercontroller : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] string inputaxis = "Horizontal";
     [SerializeField] float speed = 10f;
     [SerializeField] float jumpForce = 50f;
     [SerializeField] float leftborder = 0f;
     [SerializeField] float rightborder = 100f;
-    [SerializeField] KeyCode jumpKey = KeyCode.Space;
 
     [Header("Grabbing")]
     [SerializeField] float grabheight = 2f;
-    [SerializeField] KeyCode interactionKey = KeyCode.E;
     [SerializeField] LayerMask layerMask;
 
     [Header("Shooting")]
     [SerializeField] Transform launchingPoint;
-    [SerializeField] float shootingStregth = 10f;
+    [SerializeField] float shootingStrength = 100f;
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] int linePoints = 175;
     [SerializeField] float timeIntervalBetweenPoints = 0.01f;
@@ -30,37 +28,47 @@ public class Charactercontroller : MonoBehaviour
     GameObject currentTarget;
     GameObject grabbedObject;
 
+    Vector2 movingParameters = Vector2.zero;
+    Vector2 aimingParameters = Vector2.zero;
+    bool isJumping;
+    bool interactionStarted;
+    bool interactionFinished;
+    PlayerInput pInput;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<CapsuleCollider>();
+        pInput = GetComponent<PlayerInput>();
         launchingPoint.transform.localPosition = new Vector3(0, grabheight, transform.position.z);
     }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis(inputaxis);
-        transform.Translate(Vector3.right * horizontalInput * speed * Time.deltaTime);
-        launchingPoint.transform.LookAt(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        Vector3 velocity = launchingPoint.forward * shootingStregth;
-
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftborder, rightborder), transform.position.y, transform.position.z);
-
-        if (Input.GetKeyDown(jumpKey) && isGrounded)
-        {
-            rb.AddForce(Vector3.up * jumpForce);
-            isGrounded = false;
-        }
-
         if (grabbedObject)
         {
             grabbedObject.transform.localPosition = new Vector3(0, grabheight, transform.position.z);
         }
 
+        // Moving
+        transform.Translate(Vector3.right * movingParameters.x * speed * Time.deltaTime);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftborder, rightborder), transform.position.y, transform.position.z);
+
+        // Jumping
+        if (isJumping && isGrounded)
+        {
+            rb.AddForce(Vector3.up * jumpForce);
+            isGrounded = false;
+            isJumping = false;
+        }
+
+        // Interaction
         Vector3 raycastOrigin = new Vector3(transform.position.x, transform.position.y - collider.bounds.size.y / 2, transform.position.z);
         RaycastHit[] hits = Physics.SphereCastAll(raycastOrigin, 1, Vector3.up, 1, layerMask);
+        Vector3 velocity = launchingPoint.forward.normalized * shootingStrength;
+
         if (hits.Length > 0)
         {
             currentTarget = hits[0].collider.gameObject;
@@ -70,7 +78,7 @@ public class Charactercontroller : MonoBehaviour
             currentTarget = null;
         }
 
-        if (Input.GetKeyUp(interactionKey))
+        if (interactionFinished)
         {
             if (!grabbedObject && currentTarget)
             {
@@ -92,28 +100,58 @@ public class Charactercontroller : MonoBehaviour
 
                 grabbedObject = null;
             }
+
+            interactionStarted = false;
+            interactionFinished = false;
         }
 
-        if (Input.GetKey(interactionKey))
+        if (interactionStarted && grabbedObject && grabbedObject.CompareTag("Throwable"))
         {
-            if(grabbedObject && grabbedObject.CompareTag("Throwable"))
+            if (pInput.currentControlScheme == "Keyboard&Mouse")
             {
-                lineRenderer.enabled = true;
+                launchingPoint.transform.LookAt(launchingPoint.transform.position + new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0).normalized);
+            }
+            else
+            {
+                launchingPoint.transform.LookAt(launchingPoint.transform.position + new Vector3(aimingParameters.x, aimingParameters.y, 0).normalized);
+            }
 
-                Vector3 origin = launchingPoint.position;
-                lineRenderer.positionCount = linePoints;
-                float time = 0;
+            lineRenderer.enabled = true;
 
-                for (int i = 0; i < linePoints; i++)
-                {
-                    float x = (velocity.x * time) + (Physics.gravity.x / 2 * time * time);
-                    float y = (velocity.y * time) + (Physics.gravity.y / 2 * time * time);
-                    Vector3 point = new Vector3(x, y, 0);
-                    lineRenderer.SetPosition(i, origin + point);
-                    time += timeIntervalBetweenPoints;
-                }
+            Vector3 origin = launchingPoint.position;
+            lineRenderer.positionCount = linePoints;
+            float time = 0;
+
+            for (int i = 0; i < linePoints; i++)
+            {
+                float x = (velocity.x * time) + (Physics.gravity.x / 2 * time * time);
+                float y = (velocity.y * time) + (Physics.gravity.y / 2 * time * time);
+                Vector3 point = new Vector3(x, y, 0);
+                lineRenderer.SetPosition(i, origin + point);
+                time += timeIntervalBetweenPoints;
             }
         }
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        movingParameters = context.ReadValue<Vector2>();
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        aimingParameters = context.ReadValue<Vector2>();
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        isJumping = context.performed;
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        interactionStarted = true;
+        interactionFinished = context.canceled;
     }
 
     private void OnCollisionEnter(Collision collision)
