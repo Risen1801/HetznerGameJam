@@ -4,6 +4,8 @@ using System.Collections;
 public class ItemInteractionController : MonoBehaviour
 {
     private GameObject _frozenObject;
+
+    public GameObject MushroomForest;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,7 +26,14 @@ public class ItemInteractionController : MonoBehaviour
 
             rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationZ;
 
-            StartCoroutine(UnlockXAfterDelay(rb, 10f));
+            StartCoroutine(UnlockXAfterDelay(rb, 5f));
+        }
+
+        if(this.gameObject.CompareTag("MushroomPotion") && collision.gameObject.CompareTag("Ground"))
+        {
+            Animator _animator = MushroomForest.GetComponent<Animator>();
+            _animator.Play("GrowMushroomForest");
+            StartCoroutine(ShrinkMushroomForestAfterDelay(10));
         }
     }
 
@@ -34,6 +43,14 @@ public class ItemInteractionController : MonoBehaviour
 
         rb.constraints &= ~RigidbodyConstraints.FreezePositionX;
         rb.constraints &= ~RigidbodyConstraints.FreezeRotationX;
+    }
+
+    IEnumerator ShrinkMushroomForestAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        Animator _animator = MushroomForest.GetComponent<Animator>();
+        _animator.Play("ShrinkMushroomForest");
     }
 
 }

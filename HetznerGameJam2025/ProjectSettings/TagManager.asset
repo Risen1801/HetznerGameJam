@@ -15,8 +15,8 @@ TagManager:
   - Throwable
   - FreezePotion
   - FirePotion
-  - MushroomPPotion
   - HealPotion
+  - MushroomPotion
   layers:
   - Default
   - TransparentFX
