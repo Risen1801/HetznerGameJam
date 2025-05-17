@@ -4,6 +4,9 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - Ground
+  - Grabbable
+  - Trowable
   - Gem
   - FireItem
   - FreezeItem
@@ -16,8 +19,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - Grabable
   - 
   - 
   - 
