@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class WeightController : MonoBehaviour
 {
-    public GameObject[] Weights;
+
     public float Speed = 10;
     public float minRangeX = 4.5f;
     public float maxRangeX = 1.5f;
@@ -11,6 +11,8 @@ public class WeightController : MonoBehaviour
 
     public GameObject Hand;
     public GameObject InteractCanvas;
+    public GameObject LetGoCanvas;
+    public GameObject CombineCanvas;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

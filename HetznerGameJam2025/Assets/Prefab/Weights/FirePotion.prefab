@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2714663679545855633}
   - component: {fileID: 3654721506001108381}
   m_Layer: 0
-  m_Name: WeightSmal
+  m_Name: FirePotion
   m_TagString: Gem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
