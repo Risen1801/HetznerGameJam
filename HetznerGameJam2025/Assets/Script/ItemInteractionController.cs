@@ -18,36 +18,22 @@ public class ItemInteractionController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (this.gameObject.CompareTag("FreezePotion") && collision.gameObject.layer == 9)
+        if (this.gameObject.CompareTag("FreezePotion") && collision.gameObject.layer == LayerMask.NameToLayer("CanFreeze"))
         {
-            collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-            collision.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX;
+            var rb = collision.gameObject.GetComponent<Rigidbody>();
 
-            _frozenObject = collision.gameObject;
+            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationZ;
 
-            StartCoroutine(UnlockXZAfterDelay(10f));
+            StartCoroutine(UnlockXAfterDelay(rb, 10f));
         }
     }
 
-    IEnumerator UnlockXZAfterDelay(float delay)
+    IEnumerator UnlockXAfterDelay(Rigidbody rb, float delay)
     {
         yield return new WaitForSeconds(delay);
-        Debug.Log("StartedFreezing");
 
-        _frozenObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX;
-        _frozenObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
-
-        //StartCoroutine(LockZAxis(0.1f));
+        rb.constraints &= ~RigidbodyConstraints.FreezePositionX;
+        rb.constraints &= ~RigidbodyConstraints.FreezeRotationX;
     }
 
-    /*
-    IEnumerator LockZAxis(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        Debug.Log("Unfrozen");
-
-        _frozenObject.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ;
-        _frozenObject.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
-    }
-    */
 }
