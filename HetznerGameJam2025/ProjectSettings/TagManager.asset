@@ -8,6 +8,15 @@ TagManager:
   - Grabbable
   - Trowable
   - Gem
+  - FireItem
+  - FreezeItem
+  - MushroomItem
+  - HealItem
+  - Throwable
+  - FreezePotion
+  - FirePotion
+  - MushroomPPotion
+  - HealPotion
   layers:
   - Default
   - TransparentFX
@@ -17,8 +26,8 @@ TagManager:
   - UI
   - Player
   - Grabable
-  - 
-  - 
+  - CanPassBarrier
+  - CanFreeze
   - 
   - 
   - 
