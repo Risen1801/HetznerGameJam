@@ -45,9 +45,13 @@ public class Charactercontroller : MonoBehaviour
     bool interactionFinished;
     PlayerInput pInput;
 
+    private AudioManager audioManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioManager = FindFirstObjectByType<AudioManager>();
+        
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<CapsuleCollider>();
         pInput = GetComponent<PlayerInput>();
@@ -112,9 +116,13 @@ public class Charactercontroller : MonoBehaviour
                 grabbedObject = currentTarget;
                 grabbedObject.transform.SetParent(transform, true);
                 grabbedObject.GetComponent<Rigidbody>().useGravity = false;
+                
+                audioManager.PlaySFX(audioManager.pickUpObject);
             }
             else if (grabbedObject && currentTarget && grabbedObject.CompareTag(currentTarget.tag))
             {
+                audioManager.PlaySFX(audioManager.objectCombined);
+                
                 Destroy(grabbedObject);
                 if (currentTarget.CompareTag("MushroomItem"))
                 {
@@ -138,6 +146,8 @@ public class Charactercontroller : MonoBehaviour
                 {
                     grabbedObject.GetComponent<Rigidbody>().linearVelocity = velocity;
                     lineRenderer.enabled = false;
+                    
+                    audioManager.PlaySFX(audioManager.ThrowingObject);
                 }
 
                 grabbedObject = null;
