@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MushroomForest: {fileID: 8169661700091070583, guid: d1d8142aad71a534aae69878e23ac557, type: 3}
+  audioManager: {fileID: 0}
 --- !u!136 &7229579772910552412
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -150,7 +151,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
