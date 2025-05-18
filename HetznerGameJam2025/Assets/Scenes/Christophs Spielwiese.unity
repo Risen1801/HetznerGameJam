@@ -5127,7 +5127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b98642736eb70684fa7551b5edb24a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 0}
   forest: {fileID: 171728873}
+  mushroomParticles: {fileID: 2534055385418694920, guid: b04c6da7beeb9ae41974311c0b3e2673, type: 3}
+  freezeParticles: {fileID: 3726000840756325689, guid: 6f34695ad855a554d835832f72c70664, type: 3}
 --- !u!65 &932119479
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5956,7 +5959,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b98642736eb70684fa7551b5edb24a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioManager: {fileID: 0}
   forest: {fileID: 442709176}
+  mushroomParticles: {fileID: 2534055385418694920, guid: b04c6da7beeb9ae41974311c0b3e2673, type: 3}
+  freezeParticles: {fileID: 3726000840756325689, guid: 6f34695ad855a554d835832f72c70664, type: 3}
 --- !u!65 &1349467146
 BoxCollider:
   m_ObjectHideFlags: 0
