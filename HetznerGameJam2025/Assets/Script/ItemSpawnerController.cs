@@ -31,19 +31,19 @@ public class ItemSpawnerController: MonoBehaviour
 
         if (spawnFreezePotion)
         {
-            Instantiate(FirePotion, _player.Hand.transform.position, FirePotion.transform.rotation, _player.Hand.transform);
+            Instantiate(FreezePotion, _player.Hand.transform.position, FreezePotion.transform.rotation, _player.Hand.transform);
             spawnFreezePotion = false;
         }
 
         if (spawnMushroomPotion)
         {
-            Instantiate(FirePotion, _player.Hand.transform.position, FirePotion.transform.rotation, _player.Hand.transform);
+            Instantiate(MushroomPotion, _player.Hand.transform.position, MushroomPotion.transform.rotation, _player.Hand.transform);
             spawnMushroomPotion = false;
         }
 
         if (spawnHealPotion)
         {
-            Instantiate(FirePotion, _player.Hand.transform.position, FirePotion.transform.rotation, _player.Hand.transform);
+            Instantiate(HealPotion, _player.Hand.transform.position, HealPotion.transform.rotation, _player.Hand.transform);
             spawnHealPotion = false;
         }
     }

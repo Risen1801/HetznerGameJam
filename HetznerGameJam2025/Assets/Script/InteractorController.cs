@@ -146,7 +146,7 @@ public class InteractorController : MonoBehaviour
 
             _currentItem = _spawnController.FreezePotion;
             _isItemInHand = true;
-            _spawnController.FirePotion.GetComponent<Rigidbody>().useGravity = false;
+            _spawnController.FreezePotion.GetComponent<Rigidbody>().useGravity = false;
         }
 
         if (_isMushroomItem && Input.GetKeyDown(KeyCode.E))
@@ -159,7 +159,7 @@ public class InteractorController : MonoBehaviour
 
             _currentItem = _spawnController.MushroomPotion;
             _isItemInHand = true;
-            _spawnController.FirePotion.GetComponent<Rigidbody>().useGravity = false;
+            _spawnController.MushroomPotion.GetComponent<Rigidbody>().useGravity = false;
         }
 
         if (_isHealItem && Input.GetKeyDown(KeyCode.E))
@@ -172,7 +172,7 @@ public class InteractorController : MonoBehaviour
 
             _currentItem = _spawnController.HealPotion;
             _isItemInHand = true;
-            _spawnController.FirePotion.GetComponent<Rigidbody>().useGravity = false;
+            _spawnController.HealPotion.GetComponent<Rigidbody>().useGravity = false;
         }
     }
 

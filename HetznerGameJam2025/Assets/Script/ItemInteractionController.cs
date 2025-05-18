@@ -3,8 +3,6 @@ using System.Collections;
 
 public class ItemInteractionController : MonoBehaviour
 {
-    private GameObject _frozenObject;
-
     public GameObject MushroomForest;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,6 +24,8 @@ public class ItemInteractionController : MonoBehaviour
 
             rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationZ;
 
+            Destroy(this.gameObject, 0.2f);
+
             StartCoroutine(UnlockXAfterDelay(rb, 5f));
         }
 
@@ -33,6 +33,9 @@ public class ItemInteractionController : MonoBehaviour
         {
             Animator _animator = MushroomForest.GetComponent<Animator>();
             _animator.Play("GrowMushroomForest");
+
+            Destroy(this.gameObject, 0.2f);
+
             StartCoroutine(ShrinkMushroomForestAfterDelay(10));
         }
     }
@@ -40,6 +43,7 @@ public class ItemInteractionController : MonoBehaviour
     IEnumerator UnlockXAfterDelay(Rigidbody rb, float delay)
     {
         yield return new WaitForSeconds(delay);
+
 
         rb.constraints &= ~RigidbodyConstraints.FreezePositionX;
         rb.constraints &= ~RigidbodyConstraints.FreezeRotationX;
