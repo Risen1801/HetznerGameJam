@@ -35,7 +35,6 @@ public class InteractorController : MonoBehaviour
     
 
     private string _heldItemTag = "";
-    private string _targetItemTag = "";
     private void Start()
     {
         _player = GameObject.FindWithTag("Player").GetComponent<WeightController>();
