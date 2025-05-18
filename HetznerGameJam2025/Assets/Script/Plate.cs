@@ -5,6 +5,8 @@ public class Plate : MonoBehaviour
 {
     public AudioManager audioManager;
     public GameObject forest;
+    public ParticleSystem mushroomParticles;
+    public ParticleSystem freezeParticles;
 
     private void Start()
     {
@@ -16,6 +18,11 @@ public class Plate : MonoBehaviour
         if (collision.collider.CompareTag("MushroomPotion"))
         {
             forest.SetActive(true);
+            Instantiate(mushroomParticles, collision.transform.position, collision.transform.rotation);
+        }
+        if (collision.collider.CompareTag("FreezePotion"))
+        {
+            Instantiate(freezeParticles, collision.transform.position, collision.transform.rotation);
         }
 
         if (!collision.collider.CompareTag("Player"))
