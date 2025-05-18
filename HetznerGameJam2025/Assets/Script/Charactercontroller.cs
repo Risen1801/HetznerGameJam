@@ -21,6 +21,9 @@ public class Charactercontroller : MonoBehaviour
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] int linePoints = 175;
     [SerializeField] float timeIntervalBetweenPoints = 0.01f;
+    
+    [Header("Animatons")]
+    [SerializeField] Animator animator;
 
     Rigidbody rb;
     CapsuleCollider collider;
@@ -53,6 +56,7 @@ public class Charactercontroller : MonoBehaviour
         }
 
         // Moving
+        // TODO Add Check if player is moving & play animation (isWalkingForward / isWalkingBackwards (depends if we have time to implement the player rotating))
         transform.Translate(Vector3.right * movingParameters.x * speed * Time.deltaTime);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftborder, rightborder), transform.position.y, transform.position.z);
 
