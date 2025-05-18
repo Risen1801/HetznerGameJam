@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7198194759974510998}
   - component: {fileID: 8054094788276058071}
   - component: {fileID: 5896647458108278114}
-  - component: {fileID: 5935825739036698075}
   m_Layer: 7
   m_Name: MushroomItem
   m_TagString: MushroomItem
@@ -159,15 +158,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.49127948, y: 0.62799555, z: 0.470532}
   m_Center: {x: 0.0100713, y: 0.30977634, z: -0.009413168}
---- !u!114 &5935825739036698075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7430625177771651500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffe3fe6669e4fd744b9b17728e03a84a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

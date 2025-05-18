@@ -113,10 +113,10 @@ public class Charactercontroller : MonoBehaviour
                 grabbedObject.transform.SetParent(transform, true);
                 grabbedObject.GetComponent<Rigidbody>().useGravity = false;
             }
-            else if (grabbedObject && grabbedObject.CompareTag(currentTarget.tag))
+            else if (grabbedObject && currentTarget && grabbedObject.CompareTag(currentTarget.tag))
             {
                 Destroy(grabbedObject);
-                if(currentTarget.CompareTag("MushroomItem"))
+                if (currentTarget.CompareTag("MushroomItem"))
                 {
                     grabbedObject = Instantiate(mushroomPotion, new Vector3(transform.position.x, transform.position.y, 0), mushroomPotion.transform.rotation);
                 }
@@ -206,11 +206,17 @@ public class Charactercontroller : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        GameManager.Instance.DeathImminent(player);
+        if (other.CompareTag("Finish"))
+        {
+            GameManager.Instance.DeathImminent(player);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        GameManager.Instance.DeathAverted();
+        if (other.CompareTag("Finish"))
+        {
+            GameManager.Instance.DeathAverted();
+        }
     }
 }
