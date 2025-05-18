@@ -5,6 +5,12 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class InteractorController : MonoBehaviour
 {
+
+    //Bug still existing: All Gems combinable together and multiple Items in Hand
+
+
+    public static GameObject HeldesItem = null;
+
     private ItemSpawnerController _spawnController;
     private WeightController _player;
 
@@ -15,14 +21,21 @@ public class InteractorController : MonoBehaviour
     private GameObject _activeMushroomItem;
     private GameObject _activeHealItem;
 
+    
     private bool _isInTrigger = false;
     private bool _isItemInHand = false;
-    private bool _isCombinableGem = false;
+    private bool _isCombinableGem1 = false;
+    private bool _isCombinableGem2 = false;
+    private bool _isCombinableGem3 = false;
+    private bool _isCombinableGem4 = false;
     private bool _isFireItem = false;
     private bool _isFreezeItem = false;
     private bool _isMushroomItem = false;
     private bool _isHealItem = false;
+    
 
+    private string _heldItemTag = "";
+    private string _targetItemTag = "";
     private void Start()
     {
         _player = GameObject.FindWithTag("Player").GetComponent<WeightController>();
@@ -41,6 +54,12 @@ public class InteractorController : MonoBehaviour
     {
         if (_isInTrigger && Input.GetKeyDown(KeyCode.E))
         {
+            if (HeldesItem != null)
+            {
+                Debug.Log("Spieler hat bereits ein Item in der Hand: " + HeldesItem.name);
+                return;
+            }
+
             Debug.Log("Pressed E while in trigger!");
             PickUpObject();
         }
@@ -64,7 +83,7 @@ public class InteractorController : MonoBehaviour
 
     private void HandleCombinationInput()
     {
-        if (_isCombinableGem && Input.GetKeyDown(KeyCode.E))
+        if (_isCombinableGem1 && Input.GetKeyDown(KeyCode.E))
         {
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(false);
@@ -74,7 +93,37 @@ public class InteractorController : MonoBehaviour
             _isItemInHand = false;
         }
 
-        if(_isFireItem && Input.GetKeyDown(KeyCode.E))
+        if (_isCombinableGem2 && Input.GetKeyDown(KeyCode.E))
+        {
+            _player.CombineCanvas.SetActive(false);
+            _player.LetGoCanvas.SetActive(false);
+            Destroy(gameObject);
+
+            _currentItem = null;
+            _isItemInHand = false;
+        }
+
+        if (_isCombinableGem3 && Input.GetKeyDown(KeyCode.E))
+        {
+            _player.CombineCanvas.SetActive(false);
+            _player.LetGoCanvas.SetActive(false);
+            Destroy(gameObject);
+
+            _currentItem = null;
+            _isItemInHand = false;
+        }
+
+        if (_isCombinableGem4 && Input.GetKeyDown(KeyCode.E))
+        {
+            _player.CombineCanvas.SetActive(false);
+            _player.LetGoCanvas.SetActive(false);
+            Destroy(gameObject);
+
+            _currentItem = null;
+            _isItemInHand = false;
+        }
+
+        if (_isFireItem && Input.GetKeyDown(KeyCode.E))
         {
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(false);
@@ -137,14 +186,35 @@ public class InteractorController : MonoBehaviour
             _currentItem = gameObject;
         }
 
-        if (other.CompareTag("Gem"))
+        if (other.CompareTag("Gem1"))
         {
-            _isCombinableGem = true;
+            _isCombinableGem1 = true;
             _player.CombineCanvas.SetActive(true);
             _player.LetGoCanvas.SetActive(false);
         }
 
-        if(other.CompareTag("FireItem"))
+        if (other.CompareTag("Gem2"))
+        {
+            _isCombinableGem2 = true;
+            _player.CombineCanvas.SetActive(true);
+            _player.LetGoCanvas.SetActive(false);
+        }
+
+        if (other.CompareTag("Gem3"))
+        {
+            _isCombinableGem3 = true;
+            _player.CombineCanvas.SetActive(true);
+            _player.LetGoCanvas.SetActive(false);
+        }
+
+        if (other.CompareTag("Gem4"))
+        {
+            _isCombinableGem4 = true;
+            _player.CombineCanvas.SetActive(true);
+            _player.LetGoCanvas.SetActive(false);
+        }
+
+        if (other.CompareTag("FireItem"))
         {
             if (_activeFireItem == null)
             {
@@ -187,7 +257,15 @@ public class InteractorController : MonoBehaviour
                 _player.LetGoCanvas.SetActive(false);
             }
         }
+
+        if (_isItemInHand)
+        {
+            _targetItemTag = other.tag;
+            _player.CombineCanvas.SetActive(true);
+            _player.LetGoCanvas.SetActive(false);
+        }
     }
+
 
     private void OnTriggerExit(Collider other)
     {
@@ -198,9 +276,30 @@ public class InteractorController : MonoBehaviour
             _player.InteractCanvas.SetActive(false);
         }
 
-        if (other.CompareTag("Gem"))
+        if (other.CompareTag("Gem1"))
         {
-            _isCombinableGem = false;
+            _isCombinableGem1 = false;
+            _player.CombineCanvas.SetActive(false);
+            _player.LetGoCanvas.SetActive(true);
+        }
+
+        if (other.CompareTag("Gem2"))
+        {
+            _isCombinableGem2 = false;
+            _player.CombineCanvas.SetActive(false);
+            _player.LetGoCanvas.SetActive(true);
+        }
+
+        if (other.CompareTag("Gem3"))
+        {
+            _isCombinableGem3 = false;
+            _player.CombineCanvas.SetActive(false);
+            _player.LetGoCanvas.SetActive(true);
+        }
+
+        if (other.CompareTag("Gem4"))
+        {
+            _isCombinableGem4 = false;
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(true);
         }
@@ -255,15 +354,22 @@ public class InteractorController : MonoBehaviour
         _currentItem.transform.parent = _player.Hand.transform;
         _rb.useGravity = false;
         _isItemInHand = true;
+
+        HeldesItem = _currentItem;
+        _heldItemTag = _currentItem.tag;
     }
+
 
     private void ReleaseObject()
     {
         _currentItem.transform.parent = null;
         _rb.useGravity = true;
         _isItemInHand = false;
+        HeldesItem = null;
+
         _player.LetGoCanvas.SetActive(false);
         _currentItem = null;
+        _heldItemTag = "";
     }
 
 }
