@@ -1,6 +1,10 @@
 # HetznerGameJam
 A Repo for the Hetzner Game Jam 2025
-Unity Version to use: Unity 6 (6000.0.48f1)
+Theme for Game Jam: Balance
+
+
+
+
 /*
  * SPDX-FileCopyrightText: Copyright information recorded in version control history
  *
