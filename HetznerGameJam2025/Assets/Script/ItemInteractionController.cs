@@ -9,7 +9,7 @@ public class ItemInteractionController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        audioManager = FindFirstObjectByType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -20,40 +20,31 @@ public class ItemInteractionController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (this.gameObject.CompareTag("FreezePotion") && collision.gameObject.layer == LayerMask.NameToLayer("CanFreeze"))
+        if (this.gameObject.CompareTag("FreezePotion") && (collision.gameObject.layer == LayerMask.NameToLayer("Grabable") || collision.gameObject.layer == LayerMask.NameToLayer("Player")))
         {
             var rb = collision.gameObject.GetComponent<Rigidbody>();
 
             rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationZ;
-<<<<<<< Updated upstream
 
             Destroy(this.gameObject, 0.2f);
-
-=======
             
             // added audio to play ice soundeffects
-            audioManager.PlaySFX(audioManager.icePotionSplatter);
             StartCoroutine(WaitForSplatterIcePotion(0.25f));
             
->>>>>>> Stashed changes
             StartCoroutine(UnlockXAfterDelay(rb, 5f));
         }
-
         if(this.gameObject.CompareTag("MushroomPotion") && collision.gameObject.CompareTag("Ground"))
         {
             Animator _animator = MushroomForest.GetComponent<Animator>();
             _animator.Play("GrowMushroomForest");
-<<<<<<< Updated upstream
 
             Destroy(this.gameObject, 0.2f);
 
-=======
              
             // added audio to play mushroom soundeffects
             audioManager.PlaySFX((audioManager.mushroomPotionSplatter));
             StartCoroutine(WaitForSplatterMushroomPotion(0.25f));
             
->>>>>>> Stashed changes
             StartCoroutine(ShrinkMushroomForestAfterDelay(10));
         }
     }
