@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4669127315526762940}
   - component: {fileID: 8299980070431296078}
   - component: {fileID: 7062878673364466352}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FreezeItem
   m_TagString: FreezeItem
   m_Icon: {fileID: 0}

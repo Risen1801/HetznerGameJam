@@ -76,6 +76,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   possiblePrefabs:
-  - {fileID: 7227765788388497685, guid: 05bc175472f9f154e96e1ce6db9e22d2, type: 3}
+  - {fileID: 771847498100592065, guid: 1515822b6cddb0a4fb1cad7e26020b15, type: 3}
+  - {fileID: 8256430295900613373, guid: 1ce5e26f263674e4480a04fe8fe1e507, type: 3}
+  - {fileID: 7235727633848355725, guid: 9549656ed5b663d4cbfa3d226a5e770d, type: 3}
+  - {fileID: 1421753889872636651, guid: 2db0050646739b8429da6d4694648ec0, type: 3}
+  - {fileID: 4833995422723161564, guid: f903362f38fc5d9488a285fdeb887857, type: 3}
+  - {fileID: 7430625177771651500, guid: 47acdd5b026a75746bad4e1e557e3aa4, type: 3}
   initialCooldownMin: 2
   initialCooldownMax: 5

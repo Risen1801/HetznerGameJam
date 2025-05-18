@@ -1,4 +1,5 @@
 using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -8,6 +9,8 @@ public class Charactercontroller : MonoBehaviour
     [Header("General")]
     [SerializeField] Player player;
     [SerializeField] Transform mesh;
+    [SerializeField] GameObject freezePotion;
+    [SerializeField] GameObject mushroomPotion;
 
     [Header("Movement")]
     [SerializeField] float speed = 10f;
@@ -110,13 +113,26 @@ public class Charactercontroller : MonoBehaviour
                 grabbedObject.transform.SetParent(transform, true);
                 grabbedObject.GetComponent<Rigidbody>().useGravity = false;
             }
+            else if (grabbedObject && grabbedObject.CompareTag(currentTarget.tag))
+            {
+                Destroy(grabbedObject);
+                if(currentTarget.CompareTag("MushroomItem"))
+                {
+                    grabbedObject = Instantiate(mushroomPotion, new Vector3(transform.position.x, transform.position.y, 0), mushroomPotion.transform.rotation);
+                }
+                if (currentTarget.CompareTag("FreezeItem"))
+                {
+                    grabbedObject = Instantiate(freezePotion, new Vector3(transform.position.x, transform.position.y, 0), freezePotion.transform.rotation);
+                }
+                Destroy(currentTarget);
+            }
             else if (grabbedObject)
             {
                 grabbedObject.transform.SetParent(null);
                 grabbedObject.transform.position = new Vector3(grabbedObject.transform.position.x, grabbedObject.transform.position.y, 0);
                 grabbedObject.GetComponent<Rigidbody>().useGravity = true;
 
-                if (grabbedObject.CompareTag("Throwable"))
+                if (grabbedObject.CompareTag("MushroomPotion") || grabbedObject.CompareTag("FreezePotion"))
                 {
                     grabbedObject.GetComponent<Rigidbody>().linearVelocity = velocity;
                     lineRenderer.enabled = false;
@@ -129,7 +145,7 @@ public class Charactercontroller : MonoBehaviour
             interactionFinished = false;
         }
 
-        if (interactionStarted && grabbedObject && grabbedObject.CompareTag("Throwable"))
+        if (interactionStarted && grabbedObject && (grabbedObject.CompareTag("MushroomPotion") || grabbedObject.CompareTag("FreezePotion")))
         {
             if (pInput.currentControlScheme == "Keyboard&Mouse")
             {
