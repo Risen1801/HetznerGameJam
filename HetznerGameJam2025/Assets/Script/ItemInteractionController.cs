@@ -4,6 +4,7 @@ using System.Collections;
 public class ItemInteractionController : MonoBehaviour
 {
     public GameObject MushroomForest;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,7 +19,7 @@ public class ItemInteractionController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (this.gameObject.CompareTag("FreezePotion") && collision.gameObject.layer == LayerMask.NameToLayer("CanFreeze"))
+        if (this.gameObject.CompareTag("FreezePotion") && (collision.gameObject.layer == LayerMask.NameToLayer("Grabable") || collision.gameObject.layer == LayerMask.NameToLayer("Player")))
         {
             var rb = collision.gameObject.GetComponent<Rigidbody>();
 

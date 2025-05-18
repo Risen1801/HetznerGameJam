@@ -118,11 +118,13 @@ public class Charactercontroller : MonoBehaviour
                 Destroy(grabbedObject);
                 if (currentTarget.CompareTag("MushroomItem"))
                 {
-                    grabbedObject = Instantiate(mushroomPotion, new Vector3(transform.position.x, transform.position.y, 0), mushroomPotion.transform.rotation);
+                    grabbedObject = Instantiate(mushroomPotion, transform);
+                    grabbedObject.GetComponent<Rigidbody>().useGravity = false;
                 }
                 if (currentTarget.CompareTag("FreezeItem"))
                 {
-                    grabbedObject = Instantiate(freezePotion, new Vector3(transform.position.x, transform.position.y, 0), freezePotion.transform.rotation);
+                    grabbedObject = Instantiate(freezePotion, transform);
+                    grabbedObject.GetComponent<Rigidbody>().useGravity = false;
                 }
                 Destroy(currentTarget);
             }
