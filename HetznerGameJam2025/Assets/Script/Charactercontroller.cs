@@ -5,6 +5,10 @@ using UnityEngine.UIElements;
 
 public class Charactercontroller : MonoBehaviour
 {
+    [Header("General")]
+    [SerializeField] Player player;
+    [SerializeField] Transform mesh;
+
     [Header("Movement")]
     [SerializeField] float speed = 10f;
     [SerializeField] float jumpForce = 50f;
@@ -21,7 +25,7 @@ public class Charactercontroller : MonoBehaviour
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] int linePoints = 175;
     [SerializeField] float timeIntervalBetweenPoints = 0.01f;
-    
+
     [Header("Animatons")]
     [SerializeField] Animator animator;
 
@@ -50,6 +54,11 @@ public class Charactercontroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.IsGameOver)
+        {
+            return;
+        }
+
         if (grabbedObject)
         {
             grabbedObject.transform.localPosition = new Vector3(0, grabheight, transform.position.z);
@@ -58,6 +67,16 @@ public class Charactercontroller : MonoBehaviour
         // Moving
         // TODO Add Check if player is moving & play animation (isWalkingForward / isWalkingBackwards (depends if we have time to implement the player rotating))
         transform.Translate(Vector3.right * movingParameters.x * speed * Time.deltaTime);
+        if (movingParameters.x > 0)
+        {
+            mesh.LookAt(mesh.position + Vector3.right);
+        }
+        else if (movingParameters.x < 0)
+        {
+            mesh.LookAt(mesh.position + Vector3.left);
+        }
+        animator.SetBool("isWalkingForward", movingParameters.x != 0 && isGrounded);
+
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftborder, rightborder), transform.position.y, transform.position.z);
 
         // Jumping
@@ -66,6 +85,7 @@ public class Charactercontroller : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce);
             isGrounded = false;
             isJumping = false;
+            animator.SetBool("isGrounded", false);
         }
 
         // Interaction
@@ -160,9 +180,21 @@ public class Charactercontroller : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        animator.SetBool("isGrounded", true);
+
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        GameManager.Instance.DeathImminent(player);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        GameManager.Instance.DeathAverted();
     }
 }
