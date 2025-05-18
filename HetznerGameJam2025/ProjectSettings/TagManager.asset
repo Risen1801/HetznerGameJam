@@ -7,7 +7,6 @@ TagManager:
   - Ground
   - Grabbable
   - Trowable
-  - Gem
   - FireItem
   - FreezeItem
   - MushroomItem
@@ -17,6 +16,11 @@ TagManager:
   - FirePotion
   - HealPotion
   - MushroomPotion
+  - MushroomPPotion
+  - Gem1
+  - Gem2
+  - Gem3
+  - Gem4
   layers:
   - Default
   - TransparentFX
