@@ -268,6 +268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundSource: {fileID: 2113380618}
   SFXSource: {fileID: 811823952}
+  mainMenuMusic: {fileID: 0}
   backgroundMusic: {fileID: 8300000, guid: c21998003b3ff2b4bb2ce00f245f660d, type: 3}
   firePotionExplosion: {fileID: 8300000, guid: 083a1475d3e233c41a8a2a539112cb1d, type: 3}
   firePotionSplatter: {fileID: 8300000, guid: 855cb51cbd341f24bb32bda0547eb562, type: 3}
@@ -276,6 +277,8 @@ MonoBehaviour:
   mushroomPotionExplosion: {fileID: 8300000, guid: 8fbbe8ac1c9905e4d8a3e3d32cbb5e91, type: 3}
   mushroomPotionSplatter: {fileID: 8300000, guid: 375e8d8d291874848aa1d20dea6c9a16, type: 3}
   objectHitsGround: {fileID: 8300000, guid: bb17b9ce4a33cdb4da921b840d421ee4, type: 3}
+  pickUpObject: {fileID: 8300000, guid: 463f878660890764092b4a3b8777a075, type: 3}
+  ThrowingObject: {fileID: 8300000, guid: ffdb0afd114887944944b69eeaa57c33, type: 3}
 --- !u!4 &720238363
 Transform:
   m_ObjectHideFlags: 0

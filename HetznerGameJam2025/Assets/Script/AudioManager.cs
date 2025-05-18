@@ -1,12 +1,15 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
+    private Scene scene;
+    
     [Header("Audio Sources")] 
     [SerializeField] AudioSource backgroundSource;
     [SerializeField] AudioSource SFXSource;
 
-    [Header("Audio Clips")] 
+    [Header("Potion Effects")] 
     [SerializeField] AudioClip mainMenuMusic;
     [SerializeField] AudioClip backgroundMusic;
     
@@ -19,14 +22,26 @@ public class AudioManager : MonoBehaviour
     public AudioClip mushroomPotionExplosion;
     public AudioClip mushroomPotionSplatter;
 
+    [Header("Other Effects")]
     public AudioClip objectHitsGround;
-
+    public AudioClip objectCombined;
+    public AudioClip pickUpObject;
+    public AudioClip ThrowingObject;
+    
     private void Start()
     {
-        
-        backgroundSource.clip = backgroundMusic;
-        backgroundSource.Play();
-        backgroundSource.loop = true;
+        if (scene.buildIndex == 0)
+        {
+            backgroundSource.clip = mainMenuMusic;
+            backgroundSource.Play();
+        }
+
+        else
+        {
+            backgroundSource.clip = backgroundMusic;
+            backgroundSource.Play();
+            backgroundSource.loop = true;
+        }
     }
 
     public void PlaySFX(AudioClip clip)
