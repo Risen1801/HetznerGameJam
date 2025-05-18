@@ -1588,6 +1588,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: 1
   mesh: {fileID: 7019920669011962644}
+  freezePotion: {fileID: 8911184935399397480, guid: 4afc18e96d5d6f84d9f9848c4392b239, type: 3}
+  mushroomPotion: {fileID: 4798432276895657091, guid: 55b2ffc23ab178b4983b6a215eeac8a7, type: 3}
   speed: 5
   jumpForce: 1500
   leftborder: 0.9
