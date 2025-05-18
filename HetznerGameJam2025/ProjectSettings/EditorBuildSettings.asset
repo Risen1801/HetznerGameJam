@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Niclas_UI.unity
+    guid: bd1faa0580ab6144da9425296cf2d432
+  - enabled: 1
     path: Assets/Scenes/Christophs Spielwiese.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
