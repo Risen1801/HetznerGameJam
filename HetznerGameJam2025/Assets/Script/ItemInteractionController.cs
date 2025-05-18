@@ -5,10 +5,11 @@ public class ItemInteractionController : MonoBehaviour
 {
     public GameObject MushroomForest;
 
+    public AudioManager audioManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        audioManager = FindFirstObjectByType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -26,10 +27,12 @@ public class ItemInteractionController : MonoBehaviour
             rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationZ;
 
             Destroy(this.gameObject, 0.2f);
-
+            
+            // added audio to play ice soundeffects
+            StartCoroutine(WaitForSplatterIcePotion(0.25f));
+            
             StartCoroutine(UnlockXAfterDelay(rb, 5f));
         }
-
         if(this.gameObject.CompareTag("MushroomPotion") && collision.gameObject.CompareTag("Ground"))
         {
             Animator _animator = MushroomForest.GetComponent<Animator>();
@@ -37,10 +40,31 @@ public class ItemInteractionController : MonoBehaviour
 
             Destroy(this.gameObject, 0.2f);
 
+             
+            // added audio to play mushroom soundeffects
+            audioManager.PlaySFX((audioManager.mushroomPotionSplatter));
+            StartCoroutine(WaitForSplatterMushroomPotion(0.25f));
+            
             StartCoroutine(ShrinkMushroomForestAfterDelay(10));
         }
     }
 
+    // added Coroutine to wait for explosion of shatted bottles
+    IEnumerator WaitForSplatterIcePotion(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        audioManager.PlaySFX(audioManager.icePotionExplosion);
+    }
+    
+    IEnumerator WaitForSplatterMushroomPotion(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        audioManager.PlaySFX(audioManager.mushroomPotionExplosion);
+    }
+    
+    
     IEnumerator UnlockXAfterDelay(Rigidbody rb, float delay)
     {
         yield return new WaitForSeconds(delay);
