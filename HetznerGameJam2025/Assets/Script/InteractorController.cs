@@ -87,8 +87,10 @@ public class InteractorController : MonoBehaviour
         {
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(false);
+            Destroy(HeldesItem);
             Destroy(gameObject);
 
+            HeldesItem = null;
             _currentItem = null;
             _isItemInHand = false;
         }
@@ -97,8 +99,10 @@ public class InteractorController : MonoBehaviour
         {
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(false);
+            Destroy(HeldesItem);
             Destroy(gameObject);
 
+            HeldesItem = null;
             _currentItem = null;
             _isItemInHand = false;
         }
@@ -107,8 +111,10 @@ public class InteractorController : MonoBehaviour
         {
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(false);
+            Destroy(HeldesItem);
             Destroy(gameObject);
 
+            HeldesItem = null;
             _currentItem = null;
             _isItemInHand = false;
         }
@@ -117,8 +123,10 @@ public class InteractorController : MonoBehaviour
         {
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(false);
+            Destroy(HeldesItem);
             Destroy(gameObject);
 
+            HeldesItem = null;
             _currentItem = null;
             _isItemInHand = false;
         }
@@ -127,12 +135,21 @@ public class InteractorController : MonoBehaviour
         {
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(false);
+
+            Destroy(HeldesItem);
             Destroy(gameObject);
+
+            HeldesItem = null;
+            _currentItem = null;
+            _isItemInHand = false;
+
             _spawnController.spawnFirePotion = true;
             Debug.Log("Spawn FireItem! From: " + gameObject.name);
 
             _currentItem = _spawnController.FirePotion;
             _isItemInHand = true;
+            HeldesItem = _currentItem;
+
             _spawnController.FirePotion.GetComponent<Rigidbody>().useGravity = false;
         }
 
@@ -140,12 +157,21 @@ public class InteractorController : MonoBehaviour
         {
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(false);
+
+            Destroy(HeldesItem);
             Destroy(gameObject);
+
+            HeldesItem = null;
+            _currentItem = null;
+            _isItemInHand = false;
+
             _spawnController.spawnFreezePotion = true;
             Debug.Log("Spawn FreezeItem! From: " + gameObject.name);
 
             _currentItem = _spawnController.FreezePotion;
             _isItemInHand = true;
+            HeldesItem = _currentItem;
+
             _spawnController.FreezePotion.GetComponent<Rigidbody>().useGravity = false;
         }
 
@@ -153,12 +179,21 @@ public class InteractorController : MonoBehaviour
         {
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(false);
+
+            Destroy(HeldesItem);
             Destroy(gameObject);
-            _spawnController.spawnFreezePotion = true;
+
+            HeldesItem = null;
+            _currentItem = null;
+            _isItemInHand = false;
+
+            _spawnController.spawnMushroomPotion = true;
             Debug.Log("Spawn FreezeItem! From: " + gameObject.name);
 
             _currentItem = _spawnController.MushroomPotion;
             _isItemInHand = true;
+            HeldesItem = _currentItem;
+
             _spawnController.MushroomPotion.GetComponent<Rigidbody>().useGravity = false;
         }
 
@@ -166,12 +201,21 @@ public class InteractorController : MonoBehaviour
         {
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(false);
+
+            Destroy(HeldesItem);
             Destroy(gameObject);
-            _spawnController.spawnFreezePotion = true;
+
+            HeldesItem = null;
+            _currentItem = null;
+            _isItemInHand = false;
+
+            _spawnController.spawnHealPotion = true;
             Debug.Log("Spawn FreezeItem! From: " + gameObject.name);
 
             _currentItem = _spawnController.HealPotion;
             _isItemInHand = true;
+            HeldesItem = _currentItem;
+
             _spawnController.HealPotion.GetComponent<Rigidbody>().useGravity = false;
         }
     }
@@ -186,83 +230,67 @@ public class InteractorController : MonoBehaviour
             _currentItem = gameObject;
         }
 
-        if (other.CompareTag("Gem1"))
+        if (other.CompareTag("Player") && HeldesItem != null && HeldesItem != this.gameObject)
         {
-            _isCombinableGem1 = true;
-            _player.CombineCanvas.SetActive(true);
-            _player.LetGoCanvas.SetActive(false);
-        }
+            if (this.CompareTag("Gem1"))
+            {
+                _isCombinableGem1 = true;
+                _player.CombineCanvas.SetActive(true);
+                _player.LetGoCanvas.SetActive(false);
+            }
 
-        if (other.CompareTag("Gem2"))
-        {
-            _isCombinableGem2 = true;
-            _player.CombineCanvas.SetActive(true);
-            _player.LetGoCanvas.SetActive(false);
-        }
+            if (this.CompareTag("Gem2"))
+            {
+                _isCombinableGem2 = true;
+                _player.CombineCanvas.SetActive(true);
+                _player.LetGoCanvas.SetActive(false);
+            }
 
-        if (other.CompareTag("Gem3"))
-        {
-            _isCombinableGem3 = true;
-            _player.CombineCanvas.SetActive(true);
-            _player.LetGoCanvas.SetActive(false);
-        }
+            if (this.CompareTag("Gem3"))
+            {
+                _isCombinableGem3 = true;
+                _player.CombineCanvas.SetActive(true);
+                _player.LetGoCanvas.SetActive(false);
+            }
 
-        if (other.CompareTag("Gem4"))
-        {
-            _isCombinableGem4 = true;
-            _player.CombineCanvas.SetActive(true);
-            _player.LetGoCanvas.SetActive(false);
-        }
+            if (this.CompareTag("Gem4"))
+            {
+                _isCombinableGem4 = true;
+                _player.CombineCanvas.SetActive(true);
+                _player.LetGoCanvas.SetActive(false);
+            }
 
-        if (other.CompareTag("FireItem"))
-        {
-            if (_activeFireItem == null)
+            if (this.CompareTag("FireItem"))
             {
                 _activeFireItem = this.gameObject;
                 _isFireItem = true;
                 _player.CombineCanvas.SetActive(true);
                 _player.LetGoCanvas.SetActive(false);
             }
-        }
 
-        if (other.CompareTag("FreezeItem"))
-        {
-            if (_activeFreezeItem == null)
+            if (this.CompareTag("FreezeItem"))
             {
                 _activeFreezeItem = this.gameObject;
                 _isFreezeItem = true;
                 _player.CombineCanvas.SetActive(true);
                 _player.LetGoCanvas.SetActive(false);
             }
-        }
 
-        if (other.CompareTag("MushroomItem"))
-        {
-            if (_activeMushroomItem == null)
+            if (this.CompareTag("MushroomItem"))
             {
                 _activeMushroomItem = this.gameObject;
                 _isMushroomItem = true;
                 _player.CombineCanvas.SetActive(true);
                 _player.LetGoCanvas.SetActive(false);
             }
-        }
 
-        if (other.CompareTag("HealItem"))
-        {
-            if (_activeHealItem == null)
+            if (this.CompareTag("HealItem"))
             {
                 _activeHealItem = this.gameObject;
-                _isMushroomItem = true;
+                _isHealItem = true;
                 _player.CombineCanvas.SetActive(true);
                 _player.LetGoCanvas.SetActive(false);
             }
-        }
-
-        if (_isItemInHand)
-        {
-            _targetItemTag = other.tag;
-            _player.CombineCanvas.SetActive(true);
-            _player.LetGoCanvas.SetActive(false);
         }
     }
 
@@ -276,78 +304,67 @@ public class InteractorController : MonoBehaviour
             _player.InteractCanvas.SetActive(false);
         }
 
-        if (other.CompareTag("Gem1"))
+        if (this.CompareTag("Gem1") && other.CompareTag("Player"))
         {
             _isCombinableGem1 = false;
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(true);
         }
 
-        if (other.CompareTag("Gem2"))
+        if (this.CompareTag("Gem2") && other.CompareTag("Player"))
         {
             _isCombinableGem2 = false;
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(true);
         }
 
-        if (other.CompareTag("Gem3"))
+        if (this.CompareTag("Gem3") && other.CompareTag("Player"))
         {
             _isCombinableGem3 = false;
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(true);
         }
 
-        if (other.CompareTag("Gem4"))
+        if (this.CompareTag("Gem4") && other.CompareTag("Player"))
         {
             _isCombinableGem4 = false;
             _player.CombineCanvas.SetActive(false);
             _player.LetGoCanvas.SetActive(true);
         }
 
-        if (other.CompareTag("FireItem"))
+        if (this.CompareTag("FireItem") && other.CompareTag("Player") && HeldesItem != this.gameObject)
         {
-            if (_activeFireItem == this)
-            {
-                _activeFireItem = null;
-                _isFireItem = false;
-                _player.CombineCanvas.SetActive(false);
-                _player.LetGoCanvas.SetActive(true);
-            }
+            _activeFireItem = null;
+            _isFireItem = false;
+            _player.CombineCanvas.SetActive(false);
+            _player.LetGoCanvas.SetActive(true);
         }
 
-        if (other.CompareTag("FreezeItem"))
+        if (this.CompareTag("FreezeItem") && other.CompareTag("Player") && HeldesItem != this.gameObject)
         {
-            if (_activeFreezeItem == null)
-            {
-                _activeFreezeItem = this.gameObject;
-                _isFreezeItem = true;
-                _player.CombineCanvas.SetActive(false);
-                _player.LetGoCanvas.SetActive(true);
-            }
+            _activeFreezeItem = null;
+            _isFreezeItem = false;
+            _player.CombineCanvas.SetActive(false);
+            _player.LetGoCanvas.SetActive(true);
         }
 
-        if (other.CompareTag("MushroomItem"))
+        if (this.CompareTag("MushroomItem") && other.CompareTag("Player") && HeldesItem != this.gameObject)
         {
-            if (_activeMushroomItem == null)
-            {
-                _activeMushroomItem = this.gameObject;
-                _isMushroomItem = true;
-                _player.CombineCanvas.SetActive(false);
-                _player.LetGoCanvas.SetActive(true);
-            }
+            _activeMushroomItem = null;
+            _isMushroomItem = false;
+            _player.CombineCanvas.SetActive(false);
+            _player.LetGoCanvas.SetActive(true);
         }
 
-        if (other.CompareTag("HealItem"))
+        if (this.CompareTag("HealItem") && other.CompareTag("Player") && HeldesItem != this.gameObject)
         {
-            if (_activeHealItem == null)
-            {
-                _activeHealItem = this.gameObject;
-                _isMushroomItem = true;
-                _player.CombineCanvas.SetActive(false);
-                _player.LetGoCanvas.SetActive(true);
-            }
+            _activeHealItem = null;
+            _isHealItem = false;
+            _player.CombineCanvas.SetActive(false);
+            _player.LetGoCanvas.SetActive(true);
         }
     }
+
 
     private void PickUpObject()
     {
